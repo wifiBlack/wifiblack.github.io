@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fan Wu · Geospatial AI, UT Austin</title>
+<meta name="description" content="Fan Wu — Ph.D. student in Geospatial AI at The University of Texas at Austin. Research on geographic bias in GeoAI and foundation models.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --surface-2:#F5F2E9; --ink:#1B1813; --ink-2:#5E5748; --ink-3:#6B6354;
+  --line:#EAE4D6; --line-2:#D9D0BC;
+  --accent:#BF5700; --accent-deep:#8F4100; --accent-soft:#FBEBDD; --accent-edge:#E8B98E;
+  --header-bg:rgba(250,248,243,.85);
+  --font-display:'Plus Jakarta Sans','Inter',system-ui,sans-serif;
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',Consolas,monospace;
+  --r-sm:6px; --r-md:10px; --r-lg:14px;
+  --shadow-1:0 1px 2px rgba(27,24,19,.05),0 1px 3px rgba(27,24,19,.03);
+  --shadow-2:0 2px 4px rgba(27,24,19,.05),0 10px 24px -14px rgba(27,24,19,.16);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#171512; --surface:#1F1C18; --surface-2:#26221D; --ink:#F1EDE4; --ink-2:#BDB5A4; --ink-3:#A39B8A;
+    --line:#332E27; --line-2:#443D33; --accent:#F08A3C; --accent-deep:#F5A765; --accent-soft:#3A2616; --accent-edge:#7A4A22;
+    --header-bg:rgba(23,21,18,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171512; --surface:#1F1C18; --surface-2:#26221D; --ink:#F1EDE4; --ink-2:#BDB5A4; --ink-3:#A39B8A;
+  --line:#332E27; --line-2:#443D33; --accent:#F08A3C; --accent-deep:#F5A765; --accent-soft:#3A2616; --accent-edge:#7A4A22;
+  --header-bg:rgba(23,21,18,.85);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);line-height:1.65;font-size:17.5px;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(900px 420px at 85% -80px,rgba(191,87,0,.08),transparent 70%),radial-gradient(700px 360px at -5% 20%,rgba(27,24,19,.04),transparent 70%);
+  background-repeat:no-repeat}
+a{color:var(--accent);text-decoration:none;text-underline-offset:3px}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* nav */
+header{position:sticky;top:0;z-index:20;background:var(--header-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+.brand{font-family:var(--font-display);font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em}
+.brand:hover{text-decoration:none}
+.links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links a{color:var(--ink-2);font-size:15.5px;font-weight:500;padding:6px 12px;border-radius:999px;white-space:nowrap;transition:background .14s,color .14s}
+.links a:hover{background:var(--surface-2);color:var(--ink);text-decoration:none}
+.links a.on{background:var(--accent-soft);color:var(--accent-deep)}
+.theme{border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;flex:none}
+.theme:hover{border-color:var(--accent-edge);color:var(--accent)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:72px 0 56px;align-items:start}
+.side{text-align:center}
+.avatar{width:200px;height:200px;border-radius:50%;margin:0 auto;overflow:hidden;border:4px solid var(--surface);box-shadow:var(--shadow-2),0 0 0 1px var(--line);background:linear-gradient(135deg,var(--accent-soft),var(--surface-2));display:grid;place-items:center;position:relative}
+.avatar img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.avatar span{font-family:var(--font-display);font-weight:800;font-size:56px;color:var(--accent);letter-spacing:-.02em}
+.social{display:flex;justify-content:center;gap:10px;margin-top:22px}
+.social a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);transition:all .14s;box-shadow:var(--shadow-1)}
+.social a:hover{color:var(--accent);border-color:var(--accent-edge);transform:translateY(-2px);text-decoration:none}
+.social svg{width:17px;height:17px;fill:currentColor}
+h1{font-family:var(--font-display);font-size:52px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.affil{margin-top:10px;font-size:18px;color:var(--ink-2)}
+.affil a{color:var(--ink);border-bottom:1px solid var(--accent-edge)}
+.affil a:hover{text-decoration:none;border-color:var(--accent)}
+.bio{margin-top:22px;display:grid;gap:14px;color:var(--ink-2);font-size:17.5px}
+.bio b{color:var(--ink);font-weight:600}
+.mail{margin-top:20px;font-family:var(--font-mono);font-size:14.5px;color:var(--ink-3)}
+.pill{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:15px;font-weight:500;color:var(--accent-deep);background:var(--accent-soft);border:1px solid var(--accent-edge);padding:6px 14px;border-radius:999px}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 4px rgba(191,87,0,.18)}
+
+/* sections */
+section{padding:44px 0}
+h2{font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+h2 em{font-style:normal;color:var(--accent)}
+.sub{color:var(--ink-3);font-size:17px;margin-bottom:26px}
+h3{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+
+/* themes */
+.themes{display:grid;gap:16px}
+.theme-card{display:grid;grid-template-columns:56px 1fr;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px 26px;box-shadow:var(--shadow-1);transition:box-shadow .2s,transform .2s,border-color .2s}
+.theme-card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px);border-color:var(--accent-edge)}
+.num{font-family:var(--font-display);font-weight:800;font-size:34px;color:var(--accent);opacity:.9;line-height:1}
+.theme-card p{margin-top:8px;color:var(--ink-2);font-size:17px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:14px;font-weight:500;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:3px 10px;border-radius:999px}
+.tag.live{color:var(--accent-deep);background:var(--accent-soft);border-color:var(--accent-edge)}
+
+/* news */
+.news{display:grid;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-1)}
+.news div{display:grid;grid-template-columns:104px 1fr;gap:16px;padding:15px 22px;border-top:1px solid var(--line);font-size:17px;color:var(--ink-2)}
+.news div:first-child{border-top:0}
+.news time{font-family:var(--font-mono);font-size:14.5px;color:var(--accent-deep);padding-top:2px}
+
+/* publications */
+.pubs{display:grid;gap:16px}
+.pub{display:grid;grid-template-columns:44px 1fr;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 26px;box-shadow:var(--shadow-1)}
+.pub .n{font-family:var(--font-display);font-weight:800;color:var(--line-2);font-size:32px;line-height:1}
+.venue{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:15px;color:var(--ink-3);margin-bottom:8px}
+.badge{font-weight:600;color:var(--accent-deep);background:var(--accent-soft);border:1px solid var(--accent-edge);padding:1px 10px;border-radius:6px;font-size:14px}
+.badge.gray{color:var(--ink-2);background:var(--surface-2);border-color:var(--line-2)}
+.authors{margin-top:8px;font-size:16.5px;color:var(--ink-2)}
+.authors b{color:var(--ink);font-weight:700;border-bottom:2px solid var(--accent-edge)}
+.hl{margin-top:10px;font-size:16.5px;color:var(--ink-2)}
+.hl b{color:var(--ink);font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{font-size:15px;font-weight:500;color:var(--ink-2);border:1px solid var(--line-2);background:var(--surface);padding:4px 12px;border-radius:var(--r-sm);transition:all .14s}
+.btn:hover{color:var(--accent);border-color:var(--accent-edge);background:var(--accent-soft);text-decoration:none}
+
+/* projects */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--shadow-1);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.card .meta{font-size:15px;color:var(--ink-3);margin-bottom:6px}
+.card p{margin-top:8px;color:var(--ink-2);font-size:16.5px}
+
+/* lists */
+.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1);overflow:hidden}
+.row{display:flex;justify-content:space-between;gap:20px;padding:14px 22px;border-top:1px solid var(--line);font-size:17px}
+.row:first-child{border-top:0}
+.row span:last-child{color:var(--ink-3);font-size:15.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.row small{display:block;color:var(--ink-3);font-size:15px}
+.label{font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:26px 0 10px}
+.label:first-of-type{margin-top:0}
+
+footer{border-top:1px solid var(--line);margin-top:40px;padding:28px 0 48px;color:var(--ink-3);font-size:15.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:28px;padding:40px 0 28px}
+  h1{font-size:38px}
+  h2{font-size:28px}
+  .side{display:flex;flex-direction:column;align-items:center}
+  .avatar{width:160px;height:160px}
+  .grid2{grid-template-columns:1fr}
+  .theme-card{grid-template-columns:1fr;gap:8px;padding:20px}
+  .pub{grid-template-columns:1fr;gap:4px;padding:20px}
+  .pub .n{font-size:20px}
+  .news div{grid-template-columns:1fr;gap:2px;padding:12px 18px}
+  .row{flex-direction:column;gap:2px;padding:12px 18px}
+  .brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Fan Wu</a>
+    <nav class="links" id="nav">
+      <a href="#top" class="on">Bio</a>
+      <a href="#research">Research</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#projects">Projects</a>
+      <a href="#honors">Honors</a>
+      <a href="#service">Service</a>
+    </nav>
+    <button class="theme" id="theme" aria-label="Toggle light/dark theme" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <div class="hero">
+    <aside class="side">
+      <div class="avatar">
+        <span>FW</span>
+        <img src="images/me.jpg" alt="Fan Wu" onerror="this.remove()">
+      </div>
+      <div class="social">
+        <a href="https://github.com/wifiBlack" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+        <a href="https://scholar.google.com/citations?user=VMnGOHsAAAAJ&hl=en" aria-label="Google Scholar" title="Google Scholar"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></a>
+        <a href="https://www.linkedin.com/in/fan-wu-3b0b27388/" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="#" id="mail-btn" aria-label="Email" title="Email"><svg viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 013.5 4h17A1.5 1.5 0 0122 5.5v13a1.5 1.5 0 01-1.5 1.5h-17A1.5 1.5 0 012 18.5v-13zm2.2.5L12 12.2 19.8 6H4.2zM20 7.9l-7.4 5.9a1 1 0 01-1.2 0L4 7.9V18h16V7.9z"/></svg></a>
+      </div>
+    </aside>
+
+    <div>
+      <h1>Fan Wu</h1>
+      <p class="affil">Ph.D. Student, <a href="https://liberalarts.utexas.edu/geography/">Department of Geography and the Environment</a>, <a href="https://www.utexas.edu/">The University of Texas at Austin</a></p>
+      <span class="pill"><i></i>Looking for 2027 summer research internships</span>
+      <div class="bio">
+        <p><b>Bio:</b> I am a first-year Ph.D. student in Geospatial AI at UT Austin, advised by Prof. <a href="https://gengchenmai.github.io/">Gengchen Mai</a> in the <a href="https://sites.utexas.edu/seai/">SEAI Lab</a>. I received my B.Eng. in Spatial Informatics and Digital Technology from the School of Remote Sensing and Information Engineering at Wuhan University in 2026, in the university's selective Experimental Class of Spatial Information.</p>
+        <p>I study <b>geographic bias</b> in GeoAI models and geospatial foundation models: how to measure it, understand where it comes from, and reduce it. My current work builds a statistics-based framework for quantifying and debiasing geographic bias, and extends it to the <b>pre-training stage</b> of geospatial foundation models. Before that, I worked on remote sensing change detection, which led to a first-author paper in IEEE J-STARS and a Chinese patent.</p>
+        <p>I was also a <b>Google Summer of Code 2025</b> contributor at OSGeo, where I worked on graph reordering for pgRouting.</p>
+      </div>
+      <p class="mail" id="mail-text">Email: wifibk [at] utexas [dot] edu</p>
+    </div>
+  </div>
+
+  <section id="research">
+    <h2>Research <em>Themes</em></h2>
+    <p class="sub">Making geospatial AI fair, measurable, and trustworthy.</p>
+    <div class="themes">
+      <article class="theme-card reveal">
+        <div class="num">01</div>
+        <div>
+          <h3>Quantifying Geographic Bias</h3>
+          <p>AI models often perform systematically differently across places. Existing bias measures are tied to specific models and hide which spatial factors cause the gap. We treat model performance on Earth's surface as a spatial point pattern and use information theory to build model-agnostic, spatially explicit bias scores covering multi-scale heterogeneity, distance decay, and anisotropy.</p>
+          <div class="tags"><span class="tag">Spatial statistics</span><span class="tag">Information theory</span><span class="tag">Fairness</span></div>
+        </div>
+      </article>
+      <article class="theme-card reveal">
+        <div class="num">02</div>
+        <div>
+          <h3>Debiasing Geospatial Foundation Models</h3>
+          <p>Bias is easier to fix before it is baked in. I am developing a debiasing framework for GeoAI and foundation models, extending it to the <b style="color:var(--ink);font-weight:600">pre-training stage</b> of geospatial foundation models.</p>
+          <div class="tags"><span class="tag live">Ongoing</span><span class="tag">Pre-training</span><span class="tag">Foundation models</span><span class="tag">Debiasing</span></div>
+        </div>
+      </article>
+      <article class="theme-card reveal">
+        <div class="num">03</div>
+        <div>
+          <h3>Earlier Work: Remote Sensing Change Detection</h3>
+          <p>As an undergraduate, I developed content-aware enhancement methods for change detection, leading to CFNet (IEEE J-STARS) and a Chinese patent, and collaborated on ISANet for cropland change detection (IEEE ICCA).</p>
+          <div class="tags"><span class="tag">CFNet</span><span class="tag">ISANet</span><span class="tag">Change detection</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="news">
+    <h2>Recent <em>News</em></h2>
+    <p class="sub">&nbsp;</p>
+    <div class="news reveal">
+      <div><time>2026.08</time><span>Started my Ph.D. in Geospatial AI at UT Austin, in the SEAI Lab.</span></div>
+      <div><time>2026</time><span>Awarded the Graduate School Academic Enrichment Award ($10,000), UT Austin.</span></div>
+      <div><time>2026</time><span>Serving as a reviewer for ACM SIGSPATIAL 2026.</span></div>
+      <div><time>2026.06</time><span>Graduated from Wuhan University (B.Eng.).</span></div>
+      <div><time>2025</time><span>Selected for Google Summer of Code 2025 with OSGeo pgRouting.</span></div>
+      <div><time>2025</time><span>CFNet published in IEEE J-STARS.</span></div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Selected <em>Publications</em></h2>
+    <p class="sub"><a href="https://scholar.google.com/citations?user=VMnGOHsAAAAJ&hl=en">Full list on Google Scholar</a></p>
+    <div class="pubs">
+      <article class="pub reveal">
+        <div class="n">2</div>
+        <div>
+          <div class="venue"><span class="badge">J-STARS</span><span>IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, 2025 · JCR Q1</span></div>
+          <h3>CFNet: Optimizing Remote Sensing Change Detection through Content-Aware Enhancement</h3>
+          <p class="authors"><b>Fan Wu</b>, Sijun Dong, Xiaoliang Meng</p>
+          <div class="btns"><a class="btn" href="https://github.com/wifiBlack/CFNet">Code</a></div>
+        </div>
+      </article>
+      <article class="pub reveal">
+        <div class="n">1</div>
+        <div>
+          <div class="venue"><span class="badge">ICCA</span><span>IEEE International Conference on Control and Automation, 2024 · EI</span></div>
+          <h3>ISANet: An Interactive Self-attention Network for Cropland Image Change Detection</h3>
+          <p class="authors">Sijun Dong, Y. Chen, <b>Fan Wu</b></p>
+        </div>
+      </article>
+    </div>
+
+    <p class="label" style="margin-top:30px">Patent</p>
+    <div class="list reveal">
+      <div class="row"><span>A Remote Sensing Image Change Detection System Based on Content Feature Enhancement Learning<small>Chinese patent (granted), first inventor · No. ZL 202510000701.3</small></span><span>2025</span></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Selected <em>Projects</em></h2>
+    <p class="sub">&nbsp;</p>
+    <div class="grid2">
+      <article class="card reveal">
+        <div class="meta">Google Summer of Code 2025 · OSGeo</div>
+        <h3>Graph Reordering for pgRouting</h3>
+        <p>Integrated the King and minimum-degree ordering algorithms from the Boost Graph Library into the pgRouting library.</p>
+        <div class="tags"><span class="tag">C++</span><span class="tag">Boost Graph Library</span><span class="tag">PostgreSQL</span></div>
+      </article>
+      <article class="card reveal">
+        <div class="meta">Wuhan University · Luojia Undergraduate Innovation Research Fund · Project Lead</div>
+        <h3>CFNet: Content-Aware Change Detection</h3>
+        <p>Proposed a content-aware feature-enhancement network for remote sensing change detection, published in IEEE J-STARS (2025).</p>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">Change detection</span><span class="tag">Remote sensing</span></div>
+        <div class="btns"><a class="btn" href="https://github.com/wifiBlack/CFNet">Code</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="honors">
+    <h2>Honors <em>&amp; Awards</em></h2>
+    <p class="sub">&nbsp;</p>
+    <div class="list reveal">
+      <div class="row"><span>Graduate School Academic Enrichment Award ($10,000), UT Austin</span><span>2026</span></div>
+      <div class="row"><span>Liu Daoyu Creative Learning Award (RMB 10,000), Wuhan University</span><span>2025</span></div>
+      <div class="row"><span>NITORI International Scholarship (RMB 5,000), Wuhan University</span><span>2024</span></div>
+      <div class="row"><span>Excellent Student Scholarship; “Triple-A” Student, Wuhan University</span><span>2023, 2024, 2025</span></div>
+      <div class="row"><span>First Prize, National Collegiate Mathematics Competition</span><span>2023</span></div>
+    </div>
+  </section>
+
+  <section id="service">
+    <h2>Academic <em>Service</em></h2>
+    <p class="sub">&nbsp;</p>
+    <p class="label">Conference reviewer</p>
+    <div class="list reveal">
+      <div class="row"><span>ACM SIGSPATIAL</span><span>2026</span></div>
+    </div>
+    <p class="label">Activities</p>
+    <div class="list reveal">
+      <div class="row"><span>Head of Technology Department, “Remote Sensing+” Club, Wuhan University</span><span>2024 – 2025</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Fan Wu</span>
+    <a href="#top">↑ Back to top</a>
+  </footer>
+</main>
+
+<script>
+// theme toggle (remembered if storage is available)
+(function(){
+  var root=document.documentElement,btn=document.getElementById('theme');
+  try{var t=localStorage.getItem('theme');if(t)root.setAttribute('data-theme',t)}catch(e){}
+  btn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+    var next=dark?'light':'dark';root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next)}catch(e){}
+  });
+})();
+// email obfuscation
+(function(){
+  var u=['wifibk','utexas.edu'].join('@');
+  document.getElementById('mail-btn').addEventListener('click',function(e){e.preventDefault();location.href='mailto:'+u});
+})();
+// scroll-spy
+(function(){
+  var links=[].slice.call(document.querySelectorAll('#nav a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  var ids=Object.keys(map);
+  function spy(){
+    var y=window.scrollY+120,cur='top';
+    ids.forEach(function(id){var el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id});
+    links.forEach(function(a){a.classList.remove('on')});
+    if(map[cur]){map[cur].classList.add('on');
+      var nav=document.getElementById('nav');
+      if(nav.scrollWidth>nav.clientWidth){nav.scrollLeft=map[cur].offsetLeft-nav.clientWidth/2+map[cur].clientWidth/2}}
+  }
+  window.addEventListener('scroll',spy,{passive:true});spy();
+})();
+// reveal on scroll
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
